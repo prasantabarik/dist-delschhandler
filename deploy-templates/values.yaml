@@ -1,0 +1,19 @@
+name: delschreqhandler
+namespace: ""
+cdPipelineName: ""
+cdPipelineStageName: ""
+dnsWildcard: 59ae6b648ca3437aae3a.westeurope.aksapp.io
+framework: java11
+
+database:
+  required: false
+
+
+ingress:
+  required: true
+  site: delschreqhandler
+  path: /api/v1/deliverySchedule-Validation-service
+
+image:
+  name: delschreqhandler
+  version: latest
