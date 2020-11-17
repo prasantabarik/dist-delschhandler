@@ -16,13 +16,15 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 @Service
 class DeliveryClientService : Deliveryschedule<DeliveryScheduleModel> {
     val logger = logger()
-    private val basePath = "http://localhost:8092/api/v1/service-template"
-    override fun getdeliveryscheduleall(storeNumber: Long?, deliveryStreamNumber: Int?, deliveryStreamName: String?, schemaName: String?, startDate: String?, endDate: String?, notes: String?): List<DeliveryScheduleModel>? {
+    private val basePath = "http://delschcrud-edppublic-delschcrud-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/deliveryschedule-crud-service"
+    override fun getdeliveryscheduleall(storeNumber: Long?, deliveryStreamNumber: Int?, deliveryStreamName: String?,
+                                        schemaName: String?, startDate: String?, endDate: String?, notes: String?)
+                                        : List<DeliveryScheduleModel>? {
         var mapParams: MutableMap<String, String> = mutableMapOf<String, String>()
 
         if(storeNumber == null && deliveryStreamNumber == null && deliveryStreamName == null &&
                 schemaName == null && startDate == null && endDate == null && notes == null){
-            return Utility.convert("$basePath/model", DeliveryScheduleModel(), mapParams)?.toList()
+            return Utility.convert("$basePath/model", DeliveryScheduleModel(), mapParams)
         }
 
         if( storeNumber != null) {
@@ -50,7 +52,7 @@ class DeliveryClientService : Deliveryschedule<DeliveryScheduleModel> {
         if( notes != null) {
             mapParams.put("notes", notes);
         }
-        return Utility.convert("$basePath/model", DeliveryScheduleModel(), mapParams)?.toList()
+        return Utility.convert("$basePath/model", DeliveryScheduleModel(), mapParams)
     }
     companion object {
 

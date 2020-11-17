@@ -76,7 +76,7 @@ class Controller(private val service: Service,
 //        customService.getdeliveryscheduleall()?.toMutableList()
         return ResponseEntity.ok(ServiceResponse("200",
                 "SUCCESS", customService.getdeliveryscheduleall(storeNumber, deliveryStreamNumber,deliveryStreamName,
-                schemaName,startDate,endDate,notes)?.toMutableList()))
+                schemaName,startDate,endDate,notes)))
     }
 
     /**
@@ -108,14 +108,14 @@ class Controller(private val service: Service,
     )
     @RequestMapping(value = [POST_PUT_DELETE_URI], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun post(@RequestBody model: DeliveryScheduleModel): ResponseEntity<ServiceResponse> {
-        println(model)
-        val response:ResponseEntity<ServiceResponse>?
+        println("model is" + model)
 
-        response = postService.postForm(model)
+       val  response= postService.postForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
                     "Failure", "Data Not Valid"))
-        } else {
+        }
+        else {
             return ResponseEntity.ok(ServiceResponse("200",
                     "SUCCESS", "Data Successfully Inserted"))
         }
@@ -123,18 +123,27 @@ class Controller(private val service: Service,
 
 
 
-    @Operation(summary = OPENAPI_PUT_DEF, description = OPENAPI_PUT_DEF, tags = [API_TAG_NAME])
+    @Operation(summary = OPENAPI_POST_DEF, description = OPENAPI_POST_DEF, tags = [API_TAG_NAME])
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = DATA_FOUND, content = [Content(schema = Schema(implementation = BaseModel::class))]),
         ApiResponse(responseCode = "400", description = BAD_REQUEST, content = [Content()]),
         ApiResponse(responseCode = "404", description = NO_DATA_FOUND, content = [Content()])]
     )
     @RequestMapping(value = [POST_PUT_DELETE_URI], method = [RequestMethod.PUT], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun put(@RequestBody model: Model): ResponseEntity<ServiceResponse> {
-        service.save(model)
-        return ResponseEntity.ok(ServiceResponse("200",
-                "SUCCESS", "Data Successfully Updated"))
+    fun put(@RequestBody model: DeliveryScheduleModel): ResponseEntity<ServiceResponse> {
+     //   println("model is" + model)
+
+        val  response= postService.updateForm(model)
+        if (response == null) {
+            return ResponseEntity.ok(ServiceResponse("400",
+                    "Failure", "Data Not Updated"))
+        }
+        else {
+            return ResponseEntity.ok(ServiceResponse("200",
+                    "SUCCESS", "Data Successfully Updated"))
+        }
     }
+
 
 
 
@@ -144,9 +153,10 @@ class Controller(private val service: Service,
         ApiResponse(responseCode = "400", description = BAD_REQUEST, content = [Content()]),
         ApiResponse(responseCode = "404", description = NO_DATA_FOUND, content = [Content()])]
     )
-    @RequestMapping(value = [POST_PUT_DELETE_URI], method = [RequestMethod.DELETE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = [GET_BY_ID_URI], method = [RequestMethod.DELETE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun delete(@PathVariable id: String): ResponseEntity<ServiceResponse> {
-        service.delete(id)
+
+        postService.deleteById(id)
         return ResponseEntity.ok(ServiceResponse("200",
                 "SUCCESS", "Data Successfully Deleted"))
     }
