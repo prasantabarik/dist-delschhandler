@@ -54,7 +54,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
 //                null, params.startDate,
 //                params.endDate,null)?.get(0)
       //  var timetalevalid : List<Timetable>?  = delexample?.timeTableList
-        var timetablepassed=params.timeTableList
+        var timetablepassed=params.timeTable
         var timetablepassedvalidation:MutableList<Timetable>?= mutableListOf()
         var matchesflag: Boolean
         println(timetablepassed)
@@ -208,7 +208,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
 //                null, params.startDate,
 //                params.endDate,null)?.get(0)
         //  var timetalevalid : List<Timetable>?  = delexample?.timeTableList
-        var timetablepassed=params.timeTableList
+        var timetablepassed=params.timeTable
         var timetablepassedvalidation:MutableList<Timetable>?= mutableListOf()
         var matchesflag: Boolean
         println(timetablepassed)

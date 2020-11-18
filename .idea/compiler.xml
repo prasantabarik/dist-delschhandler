@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="DeliveryScheduleRequestHandler" />
         <module name="deliverySchedule-validator" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DeliveryScheduleRequestHandler" options="-parameters" />
       <module name="deliverySchedule-validator" options="-parameters" />
     </option>
   </component>

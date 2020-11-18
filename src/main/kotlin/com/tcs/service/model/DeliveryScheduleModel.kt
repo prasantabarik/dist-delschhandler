@@ -13,7 +13,11 @@ data class DeliveryScheduleModel(
         val startDate: String?="",
         val endDate: String?="",
         val notes: String?="",
-        var timeTableList:List<Timetable>?= listOf()
+        var timeTable: List<Timetable>? = listOf(),
+        var createdBy : String?="",
+        var creationDateTime: String?="",
+        var updatedBy : String?="",
+        var updateDateTime : String?=""
 ) {
 
 }
