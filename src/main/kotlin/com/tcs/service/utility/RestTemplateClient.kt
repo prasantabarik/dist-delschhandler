@@ -31,7 +31,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
         var timetablepassedcheckflagcount : Int =0
      params.id = params.storeNumber.toString() + params.startDate + params.deliveryStreamNumber
       //  println(params.deliveryStreamNumber)
-        var basepathforgetallservice = "http://getrefdata-edppublic-getrefdata-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/getReference/"
+        var basepathforgetallservice = "http://getrefdata-edppublic-getrefdata-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/getReferenceData/"
         var parametermap:MutableMap<String, String> = mutableMapOf<String, String>()
      //   println("params is" + params)
      //   println(basepathforgetallservice+"deliveryStream/"+params.deliveryStreamNumber)
@@ -185,7 +185,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
         var timetablepassedcheckflagcount : Int =0
         params.id = params.storeNumber.toString() + params.startDate + params.deliveryStreamNumber
         //  println(params.deliveryStreamNumber)
-        var basepathforgetallservice = "http://getrefdata-edppublic-getrefdata-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/getReference/"
+        var basepathforgetallservice = "http://getrefdata-edppublic-getrefdata-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/getReferenceData/"
         var parametermap:MutableMap<String, String> = mutableMapOf<String, String>()
         //   println("params is" + params)
         //   println(basepathforgetallservice+"deliveryStream/"+params.deliveryStreamNumber)
