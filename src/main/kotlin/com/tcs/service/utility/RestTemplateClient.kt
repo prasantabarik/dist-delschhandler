@@ -111,7 +111,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
 
 
         println(validationforinsert(params))
-        if (params.endDate!! <= currentDateTime.format(DateTimeFormatter.ISO_DATE) || params.endDate <= params.startDate.toString()
+        if (params.endDate.toString() <= currentDateTime.format(DateTimeFormatter.ISO_DATE) || params.endDate.toString() <= params.startDate.toString()
                 || !validationforinsert(params)) {
             return null
         }
@@ -149,7 +149,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
 
 
         println(validationforinsert(params))
-        if (params.endDate!! <= currentDateTime.format(DateTimeFormatter.ISO_DATE) || params.endDate <= params.startDate.toString()
+        if (params.endDate.toString() <= currentDateTime.format(DateTimeFormatter.ISO_DATE) || params.endDate.toString() <= params.startDate.toString()
                 || !validationforupdate(params)) {
             return null
         }

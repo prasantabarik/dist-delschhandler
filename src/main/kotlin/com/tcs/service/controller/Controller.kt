@@ -113,7 +113,7 @@ class Controller(private val service: Service,
        val  response= postService.postForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
-                    "Failure", "Data Not Valid"))
+                    "Failure", "Something went wrong in inserting Delivery Schedule"))
         }
         else {
             return ResponseEntity.ok(ServiceResponse("200",
@@ -136,7 +136,7 @@ class Controller(private val service: Service,
         val  response= postService.updateForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
-                    "Failure", "Data Not Updated"))
+                    "Failure", "Something went wrong in updating Delivery Schedule"))
         }
         else {
             return ResponseEntity.ok(ServiceResponse("200",
