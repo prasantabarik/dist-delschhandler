@@ -8,7 +8,7 @@ spring:
       database: deliverymoment-db
       uri: mongodb://deliverymoment-cosmos-mongo-db:0LTdfL6WYtDKS4zINtXwkbUbt9UV4sZt0RA0KCqTgrn0qmXHWMQrgXmGQd7uYueYgClYYUaXjav8EzDCcty1xg==@deliverymoment-cosmos-mongo-db.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@deliverymoment-cosmos-mongo-db@
 server:
-  port: 8087
+  port: 8081
   application:
     name: deliverySchedule-Validation-service
 ##Properties for Prometheus End Points
