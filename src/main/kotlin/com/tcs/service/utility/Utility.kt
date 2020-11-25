@@ -15,8 +15,8 @@ object Utility {
 
         val jsonObject = get(url = url, params = params).jsonObject
         println(jsonObject)
-        return when {
-            jsonObject!= null -> {
+        return when(true) {
+            true -> {
                 println("Hi")
                 val mapper = ObjectMapper().registerKotlinModule()
                 mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
@@ -41,7 +41,7 @@ object Utility {
                     }
                 }
             }
-            else -> {
+            false -> {
                 null
             }
         }
@@ -51,8 +51,8 @@ object Utility {
 
         val jsonObject = get(url = url, params = params).jsonObject
         println(jsonObject)
-        return when {
-            jsonObject!= null -> {
+        return when(true) {
+            true -> {
                 println("Hi")
                 val mapper = ObjectMapper().registerKotlinModule()
                 mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
@@ -69,7 +69,7 @@ object Utility {
                     }
                 }
             }
-            else -> {
+            false -> {
                 null
             }
         }

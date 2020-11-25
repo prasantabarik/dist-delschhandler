@@ -46,15 +46,8 @@ class Controller(private val service: Service,
 
     val logger = logger()
 
-    /**
-     * TelemetryClient is responsible for sending events to App Insights
-     */
-//    @Autowired
-//    lateinit var telemetryClient: TelemetryClient
 
-    /**
-     * This is a sample of the GET Endpoint
-     */
+
     @Operation(summary = OPENAPI_GET_DEF, description = OPENAPI_GET_DEF, tags = [API_TAG_NAME])
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = DATA_FOUND, content = [
@@ -113,7 +106,7 @@ class Controller(private val service: Service,
        val  response= postService.postForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
-                    "Failure", "Something went wrong in inserting Delivery Schedule"))
+                    "Failure", "Delivery Schedule already exists for this period"))
         }
         else {
             return ResponseEntity.ok(ServiceResponse("200",
@@ -136,7 +129,7 @@ class Controller(private val service: Service,
         val  response= postService.updateForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
-                    "Failure", "Something went wrong in updating Delivery Schedule"))
+                    "Failure", "Delivery Schedule already exists for this period"))
         }
         else {
             return ResponseEntity.ok(ServiceResponse("200",

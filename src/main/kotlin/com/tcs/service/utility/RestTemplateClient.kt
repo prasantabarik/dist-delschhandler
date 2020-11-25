@@ -89,6 +89,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService,private va
                     }
                     else {
                         matchesflag = true
+                        println(matchesflag)
                     }
 
                 }
@@ -244,6 +245,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService,private va
                     }
                     else {
                         matchesflag = true
+                        println(matchesflag)
                     }
 
                 }
