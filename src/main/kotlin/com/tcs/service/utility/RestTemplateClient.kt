@@ -17,10 +17,10 @@ import java.time.format.DateTimeFormatter
 
 
 @Component
-class RestTemplateClient(private val delclient: DeliveryClientService) {
+class RestTemplateClient(private val delclient: DeliveryClientService,private var restTemplate: RestTemplate) {
 
-    @Autowired
-    lateinit var restTemplate: RestTemplate
+//    @Autowired
+//    lateinit var restTemplate: RestTemplate
 
 
    // val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -31,7 +31,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
         var timetablepassedcheckflagcount : Int =0
      params.id = params.storeNumber.toString() + params.startDate + params.deliveryStreamNumber
       //  println(params.deliveryStreamNumber)
-       var basepathforgetallservice = "http://getrefdata-edppublic-getrefdata-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/getReferenceData/"
+       var basepathforgetallservice = "http://localhost:3500/v1.0/invoke/getrefdata.edppublic-getrefdata-dev/method/api/v1/getReferenceData/"
       //  var basepathforgetallservice = "http://localhost:8082/api/v1/getReference/"
         var parametermap:MutableMap<String, String> = mutableMapOf<String, String>()
      //   println("params is" + params)
@@ -120,7 +120,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
         else {
 
 
-        val url = "http://delschcrud-edppublic-delschcrud-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/deliveryschedule-crud-service/model"
+        val url = "http://localhost:3500/v1.0/invoke/delschcrud.edppublic-delschcrud-dev/method/api/v1/deliveryschedule-crud-service/model"
         val httpHeaders = HttpHeaders()
         httpHeaders.contentType = MediaType.APPLICATION_JSON
         val requestParams = LinkedMultiValueMap<String, String>()
@@ -158,7 +158,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
         else {
 
 
-            val url = "http://delschcrud-edppublic-delschcrud-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/deliveryschedule-crud-service/model"
+            val url = "http://localhost:3500/v1.0/invoke/delschcrud.edppublic-delschcrud-dev/method/api/v1/deliveryschedule-crud-service/model"
             val httpHeaders = HttpHeaders()
             httpHeaders.contentType = MediaType.APPLICATION_JSON
             val requestParams = LinkedMultiValueMap<String, String>()
@@ -186,7 +186,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
         var timetablepassedcheckflagcount : Int =0
         params.id = params.storeNumber.toString() + params.startDate + params.deliveryStreamNumber
         //  println(params.deliveryStreamNumber)
-        var basepathforgetallservice = "http://getrefdata-edppublic-getrefdata-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/getReferenceData/"
+        var basepathforgetallservice = "http://localhost:3500/v1.0/invoke/getrefdata.edppublic-getrefdata-dev/method/api/v1/getReferenceData/"
        // var basepathforgetallservice = "http://localhost:8082/api/v1/getReference/"
         var parametermap:MutableMap<String, String> = mutableMapOf<String, String>()
         //   println("params is" + params)
@@ -256,7 +256,7 @@ class RestTemplateClient(private val delclient: DeliveryClientService) {
     }
 
     fun deleteById(id:String) {
-        val url = "http://delschcrud-edppublic-delschcrud-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/deliveryschedule-crud-service/model/{id}"
+        val url = "http://localhost:3500/v1.0/invoke/delschcrud.edppublic-delschcrud-dev/method/api/v1/deliveryschedule-crud-service/model/{id}"
 
         var parametermap:MutableMap<String, String> = mutableMapOf<String, String>()
 
