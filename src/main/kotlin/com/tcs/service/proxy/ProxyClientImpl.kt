@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.tcs.service.constant.URLPath.DEL_SCHED_CRUD
 import com.tcs.service.model.DeliveryScheduleModel
 import com.tcs.service.utility.Utility
 import org.json.JSONObject
@@ -17,19 +18,19 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 class DeliveryClientService : Deliveryschedule<DeliveryScheduleModel> {
     val logger = logger()
   //  private val basePath = "http://delschcrud-edppublic-delschcrud-dev.59ae6b648ca3437aae3a.westeurope.aksapp.io/api/v1/deliveryschedule-crud-service"
-    private val basePath = "http://localhost:3500/v1.0/invoke/delschcrud.edppublic-delschcrud-dev/method/api/v1/deliveryschedule-crud-service"
-    override fun getdeliveryscheduleall(storeNumber: Long?, deliveryStreamNumber: Int?, deliveryStreamName: String?,
+//    private val basePath = DEL_SCHED_CRUD
+    override fun getDeliveryScheduleAll(storeNumber: Long?, deliveryStreamNumber: Int?, deliveryStreamName: String?,
                                         schemaName: String?, startDate: String?, endDate: String?, notes: String?)
                                         : List<DeliveryScheduleModel>? {
         var mapParams: MutableMap<String, String> = mutableMapOf<String, String>()
 
         if(storeNumber == null && deliveryStreamNumber == null && deliveryStreamName == null &&
                 schemaName == null && startDate == null && endDate == null && notes == null){
-            return Utility.convert("$basePath/model", DeliveryScheduleModel(), mapParams)
+            return Utility.convert("$DEL_SCHED_CRUD/model", DeliveryScheduleModel(), mapParams)
         }
 
         if( storeNumber != null) {
-//
+
             mapParams.put("storeNumber", storeNumber.toString());
         }
 
@@ -53,23 +54,23 @@ class DeliveryClientService : Deliveryschedule<DeliveryScheduleModel> {
         if( notes != null) {
             mapParams.put("notes", notes);
         }
-        return Utility.convert("$basePath/model", DeliveryScheduleModel(), mapParams)
+        return Utility.convert("$DEL_SCHED_CRUD/model", DeliveryScheduleModel(), mapParams)
     }
-    companion object {
-
-        fun convertList(jsonObject: JSONObject): List<DeliveryScheduleModel> {
-            return when {
-                jsonObject.has("response") -> {
-                    val mapper = ObjectMapper().registerKotlinModule()
-                    mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
-                    mapper.readValue<List<DeliveryScheduleModel>>(jsonObject["response"].toString(),
-                            object : TypeReference<List<DeliveryScheduleModel>>() {})
-                }
-                else -> {
-                    listOf()
-                }
-            }
-        }
-    }
+//    companion object {
+//
+//        fun convertList(jsonObject: JSONObject): List<DeliveryScheduleModel> {
+//            return when {
+//                jsonObject.has("response") -> {
+//                    val mapper = ObjectMapper().registerKotlinModule()
+//                    mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+//                    mapper.readValue<List<DeliveryScheduleModel>>(jsonObject["response"].toString(),
+//                            object : TypeReference<List<DeliveryScheduleModel>>() {})
+//                }
+//                else -> {
+//                    listOf()
+//                }
+//            }
+//        }
+//    }
 
 }

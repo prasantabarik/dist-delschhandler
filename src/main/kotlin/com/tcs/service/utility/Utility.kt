@@ -24,18 +24,8 @@ object Utility {
                 when (objectType) {
                     is DeliveryScheduleModel -> {
                         print(mapper)
-
                         mapper.readValue(jsonObject["response"].toString(), Array<DeliveryScheduleModel>::class.java).toMutableList()
                     }
-//                    is DeliveryStream -> {
-//                        println("Hello again")
-////                      mapper.readValue<StoreCluster>(jsonObject["response"].toString(), StoreCluster::class.java)
-//                        mapper.readValue(jsonObject["response"].toString(),Array<DeliveryStream>::class.java)
-//                    }
-
-//                    is  -> {
-//                        mapper.readValue<StoreCluster>(jsonObject["response"].toString(), StoreCluster::class.java)
-//                    }
                     else -> {
                         null
                     }
@@ -58,10 +48,8 @@ object Utility {
                 mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
                 println(objectType)
                 when (objectType) {
-//
                     is DeliveryStream -> {
                         println("Hello again")
-//                      mapper.readValue<StoreCluster>(jsonObject["response"].toString(), StoreCluster::class.java)
                         mapper.readValue(jsonObject["response"].toString(),Array<DeliveryStream>::class.java).toMutableList()
                     }
                     else -> {

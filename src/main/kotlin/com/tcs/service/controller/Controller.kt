@@ -1,6 +1,5 @@
 package com.tcs.service.controller
 
-import com.microsoft.applicationinsights.TelemetryClient
 import com.tcs.service.constant.ExceptionMessage.BAD_REQUEST
 import com.tcs.service.constant.ExceptionMessage.NO_DATA_FOUND
 import com.tcs.service.constant.ServiceLabels.API_TAG_DESC
@@ -11,14 +10,12 @@ import com.tcs.service.constant.ServiceLabels.OPENAPI_DELETE_BY_ID_DEF
 import com.tcs.service.constant.ServiceLabels.OPENAPI_GET_BY_ID_DEF
 import com.tcs.service.constant.ServiceLabels.OPENAPI_GET_DEF
 import com.tcs.service.constant.ServiceLabels.OPENAPI_POST_DEF
-import com.tcs.service.constant.ServiceLabels.OPENAPI_PUT_DEF
 import com.tcs.service.constant.URLPath.BASE_URI
 import com.tcs.service.constant.URLPath.GET_ALL_URI
 import com.tcs.service.constant.URLPath.GET_BY_ID_URI
 import com.tcs.service.constant.URLPath.POST_PUT_DELETE_URI
 import com.tcs.service.model.BaseModel
 import com.tcs.service.model.DeliveryScheduleModel
-import com.tcs.service.model.Model
 import com.tcs.service.model.ServiceResponse
 import com.tcs.service.proxy.DeliveryClientService
 import com.tcs.service.service.Service
@@ -32,7 +29,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.apache.logging.log4j.kotlin.logger
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -41,8 +37,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(BASE_URI)
 @Tag(name = API_TAG_NAME, description = API_TAG_DESC)
 class Controller(private val service: Service,
-                    private val validator: BaseValidator, private val customService: DeliveryClientService,
-                    private  val postService: RestTemplateClient) {
+                    private val validator: BaseValidator, private val proxyService: DeliveryClientService,
+                    private  val restService: RestTemplateClient) {
 
     val logger = logger()
 
@@ -65,10 +61,9 @@ class Controller(private val service: Service,
             @RequestParam(required = false) endDate:String?,
             @RequestParam(required = false) notes:String?): ResponseEntity<ServiceResponse> {
         logger.info("Get All")
-        var records = mutableListOf<Any>()
-//        customService.getdeliveryscheduleall()?.toMutableList()
+//        var records = mutableListOf<Any>()
         return ResponseEntity.ok(ServiceResponse("200",
-                "SUCCESS", customService.getdeliveryscheduleall(storeNumber, deliveryStreamNumber,deliveryStreamName,
+                "SUCCESS", proxyService.getDeliveryScheduleAll(storeNumber, deliveryStreamNumber,deliveryStreamName,
                 schemaName,startDate,endDate,notes)))
     }
 
@@ -101,9 +96,9 @@ class Controller(private val service: Service,
     )
     @RequestMapping(value = [POST_PUT_DELETE_URI], method = [RequestMethod.POST], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun post(@RequestBody model: DeliveryScheduleModel): ResponseEntity<ServiceResponse> {
-        println("model is" + model)
+        println("model is$model")
 
-       val  response= postService.postForm(model)
+       val  response = restService.postForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
                     "Failure", "Delivery Schedule already exists for this period"))
@@ -124,9 +119,8 @@ class Controller(private val service: Service,
     )
     @RequestMapping(value = [POST_PUT_DELETE_URI], method = [RequestMethod.PUT], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun put(@RequestBody model: DeliveryScheduleModel): ResponseEntity<ServiceResponse> {
-     //   println("model is" + model)
 
-        val  response= postService.updateForm(model)
+        val  response= restService.updateForm(model)
         if (response == null) {
             return ResponseEntity.ok(ServiceResponse("400",
                     "Failure", "Delivery Schedule already exists for this period"))
@@ -149,7 +143,7 @@ class Controller(private val service: Service,
     @RequestMapping(value = [GET_BY_ID_URI], method = [RequestMethod.DELETE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun delete(@PathVariable id: String): ResponseEntity<ServiceResponse> {
 
-        postService.deleteById(id)
+        restService.deleteById(id)
         return ResponseEntity.ok(ServiceResponse("200",
                 "SUCCESS", "Data Successfully Deleted"))
     }
